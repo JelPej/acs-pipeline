@@ -21,8 +21,8 @@ process KNEADDATA {
     script:
     """
     kneaddata \\
-        --input ${r1} \\
-        --input ${r2} \\
+        --input1 ${r1} \\
+        --input2 ${r2} \\
         --reference-db ${kneaddata_db} \\
         --output . \\
         --output-prefix ${sample_id} \\
