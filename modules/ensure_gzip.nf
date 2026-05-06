@@ -10,15 +10,18 @@ process ENSURE_GZIP {
 
     script:
     """
-    if gzip -t ${r1} 2>/dev/null; then
-        cp ${r1} ${sample_id}_R1.fastq.gz
+    if gzip -t "${r1}" 2>/dev/null; then
+        cp "${r1}" .tmp_R1.fastq.gz
     else
-        gzip -c ${r1} > ${sample_id}_R1.fastq.gz
+        gzip -c "${r1}" > .tmp_R1.fastq.gz
     fi
-    if gzip -t ${r2} 2>/dev/null; then
-        cp ${r2} ${sample_id}_R2.fastq.gz
+    mv .tmp_R1.fastq.gz "${sample_id}_R1.fastq.gz"
+
+    if gzip -t "${r2}" 2>/dev/null; then
+        cp "${r2}" .tmp_R2.fastq.gz
     else
-        gzip -c ${r2} > ${sample_id}_R2.fastq.gz
+        gzip -c "${r2}" > .tmp_R2.fastq.gz
     fi
+    mv .tmp_R2.fastq.gz "${sample_id}_R2.fastq.gz"
     """
 }
