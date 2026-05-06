@@ -29,7 +29,6 @@ process HUMANN {
         --taxonomic-profile ${metaphlan_profile} \\
         --nucleotide-database ${humann_nt_db} \\
         --protein-database ${humann_prot_db} \\
-        --pathways-database ${humann_map_db} \\
         --threads ${task.cpus} \\
         --remove-temp-output \\
         --o-log ${sample_id}_humann.log
