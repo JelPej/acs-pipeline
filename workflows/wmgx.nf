@@ -1,5 +1,6 @@
 nextflow.enable.dsl = 2
 
+include { ENSURE_GZIP                                     } from '../modules/ensure_gzip'
 include { FASTQC                                          } from '../modules/fastqc'
 include { KNEADDATA; KNEADDATA_READ_COUNT_TABLE            } from '../modules/kneaddata'
 include { METAPHLAN; MERGE_TAXONOMIC_PROFILES             } from '../modules/metaphlan'
@@ -19,11 +20,14 @@ workflow WMGX {
     humann_prot_db = file(params.humann_prot_db)
     humann_map_db  = file(params.humann_map_db)
 
+    // Step 3 — Normalize inputs to gzip (handles both plain FASTQ and .fastq.gz)
+    ENSURE_GZIP(raw_reads_ch)
+
     // Step 4 — Raw FASTQ QC
-    FASTQC(raw_reads_ch)
+    FASTQC(ENSURE_GZIP.out)
 
     // Step 5 — Host removal & trimming
-    KNEADDATA(raw_reads_ch, kneaddata_db)
+    KNEADDATA(ENSURE_GZIP.out, kneaddata_db)
     KNEADDATA_READ_COUNT_TABLE(KNEADDATA.out.logs.map { it[1] }.collect())
 
     // Step 6 — Taxonomic profiling (per sample, parallel)

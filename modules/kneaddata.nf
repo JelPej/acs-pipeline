@@ -25,12 +25,12 @@ process KNEADDATA {
         --input2 ${r2} \\
         --reference-db ${kneaddata_db} \\
         --output . \\
-        --output-prefix ${sample_id} \\
+        --output-prefix ${sample_id}_kneaddata \\
         --trimmomatic-options "${params.trimmomatic_options}" \\
         --threads ${task.cpus} \\
-        --paired \\
-        --gzip \\
         --log ${sample_id}_kneaddata.log
+
+    gzip *.fastq
 
     # Verify paired outputs exist — fail early with a clear message if missing
     if [[ ! -f "${sample_id}_kneaddata_paired_1.fastq.gz" || \\
