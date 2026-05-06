@@ -2,7 +2,7 @@ process METAPHLAN {
     tag "$sample_id"
     label 'process_high'
 
-    publishDir "${params.output}/metaphlan/main", mode: 'copy'
+    publishDir "${params.outdir}/metaphlan/main", mode: 'copy'
 
     input:
     tuple val(sample_id), path(r1), path(r2)
@@ -33,7 +33,7 @@ process METAPHLAN {
 process MERGE_TAXONOMIC_PROFILES {
     label 'process_low'
 
-    publishDir "${params.output}/metaphlan/merged", mode: 'copy'
+    publishDir "${params.outdir}/metaphlan/merged", mode: 'copy'
 
     input:
     path profiles   // all per-sample profile TSVs collected

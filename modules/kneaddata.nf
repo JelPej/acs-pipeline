@@ -2,9 +2,9 @@ process KNEADDATA {
     tag "$sample_id"
     label 'process_high'
 
-    publishDir "${params.output}/kneaddata/main",  mode: 'copy', pattern: "*.fastq.gz"
-    publishDir "${params.output}/kneaddata/logs",  mode: 'copy', pattern: "*.log"
-    publishDir "${params.output}/kneaddata/stats", mode: 'copy', pattern: "*.stats"
+    publishDir "${params.outdir}/kneaddata/main",  mode: 'copy', pattern: "*.fastq.gz"
+    publishDir "${params.outdir}/kneaddata/logs",  mode: 'copy', pattern: "*.log"
+    publishDir "${params.outdir}/kneaddata/stats", mode: 'copy', pattern: "*.stats"
 
     input:
     tuple val(sample_id), path(r1), path(r2)
@@ -62,7 +62,7 @@ process KNEADDATA {
 process KNEADDATA_READ_COUNT_TABLE {
     label 'process_low'
 
-    publishDir "${params.output}/kneaddata/merged", mode: 'copy'
+    publishDir "${params.outdir}/kneaddata/merged", mode: 'copy'
 
     input:
     path logs   // all per-sample .log files collected

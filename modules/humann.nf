@@ -3,7 +3,7 @@ process HUMANN {
     tag "$sample_id"
     label 'process_high_memory'
 
-    publishDir "${params.output}/humann/main", mode: 'copy'
+    publishDir "${params.outdir}/humann/main", mode: 'copy'
 
     input:
     tuple val(sample_id), path(r1), path(r2), path(metaphlan_profile)
@@ -43,7 +43,7 @@ process HUMANN_REGROUP {
     tag "$sample_id"
     label 'process_low'
 
-    publishDir "${params.output}/humann/regrouped", mode: 'copy'
+    publishDir "${params.outdir}/humann/regrouped", mode: 'copy'
 
     input:
     tuple val(sample_id), path(genefamilies)
@@ -67,7 +67,7 @@ process HUMANN_RENORM {
     tag "$sample_id"
     label 'process_low'
 
-    publishDir "${params.output}/humann/relab", mode: 'copy'
+    publishDir "${params.outdir}/humann/relab", mode: 'copy'
 
     input:
     tuple val(sample_id),
@@ -104,7 +104,7 @@ process HUMANN_RENORM {
 process HUMANN_JOIN {
     label 'process_low'
 
-    publishDir "${params.output}/humann/merged", mode: 'copy'
+    publishDir "${params.outdir}/humann/merged", mode: 'copy'
 
     input:
     path genefamilies_relab_files

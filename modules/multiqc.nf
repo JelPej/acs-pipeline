@@ -4,7 +4,7 @@
 process MULTIQC {
     label 'process_low'
 
-    publishDir "${params.output}/qc_summary", mode: 'copy'
+    publishDir "${params.outdir}/qc_summary", mode: 'copy'
 
     input:
     path fastqc_zips           // per-sample FastQC zip files

@@ -2,7 +2,7 @@ process FASTQC {
     tag "$sample_id"
     label 'process_medium'
 
-    publishDir "${params.output}/fastqc", mode: 'copy'
+    publishDir "${params.outdir}/fastqc", mode: 'copy'
 
     input:
     tuple val(sample_id), path(r1), path(r2)
