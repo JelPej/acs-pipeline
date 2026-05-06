@@ -1,5 +1,5 @@
 {
-    "input":          "s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/input/Zymo2_{R1,R2}.fastq.gz",
+    "input":          "s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/input/Zymo2_{R1,R2}.fastq",
     "output":         "s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/output/",
 
     "kneaddata_db":   "s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/databases/kneaddata/GRCh38/",
