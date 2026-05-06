@@ -12,8 +12,8 @@ process MULTIQC {
     path kneaddata_read_counts // merged kneaddata_read_count_table.tsv
 
     output:
-    path "multiqc_report.html",  emit: report
-    path "multiqc_data/",        emit: data
+    path "multiqc_report.html",       emit: report
+    path "multiqc_report_data/",      emit: data
 
     script:
     def config_flag = params.multiqc_config ? "--config ${params.multiqc_config}" : ''
