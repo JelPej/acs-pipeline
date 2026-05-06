@@ -21,10 +21,9 @@ process METAPHLAN {
         --db_dir ${metaphlan_db} \\
         --index ${params.metaphlan_db_version} \\
         --output_file ${sample_id}_metaphlan_profile.tsv \\
-        --bowtie2out ${sample_id}_metaphlan.bowtie2.bz2 \\
+        --mapout ${sample_id}_metaphlan.bowtie2.bz2 \\
         --samout ${sample_id}_metaphlan.sam.bz2 \\
-        --nproc ${task.cpus} \\
-        --unclassified_estimation
+        --nproc ${task.cpus}
     """
 }
 
