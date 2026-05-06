@@ -20,7 +20,7 @@ process KNEADDATA {
 
     script:
     """
-    TRIMMOMATIC_JAR=\$(find /opt/conda /usr/local/share -name "trimmomatic.jar" 2>/dev/null | head -1)
+    TRIMMOMATIC_DIR=\$(dirname \$(find /opt/conda /usr/local/share -name "trimmomatic.jar" 2>/dev/null | head -1))
 
     kneaddata \\
         --input1 ${r1} \\
@@ -28,7 +28,7 @@ process KNEADDATA {
         --reference-db ${kneaddata_db} \\
         --output . \\
         --output-prefix ${sample_id}_kneaddata \\
-        --trimmomatic "\$TRIMMOMATIC_JAR" \\
+        --trimmomatic "\$TRIMMOMATIC_DIR" \\
         --trimmomatic-options "${params.trimmomatic_options}" \\
         --threads ${task.cpus} \\
         --log ${sample_id}_kneaddata.log
