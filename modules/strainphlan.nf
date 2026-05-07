@@ -16,10 +16,11 @@ process SAMPLE2MARKERS {
 
     script:
     """
+    MPADB=\$(find ${metaphlan_db} -name "*.pkl" | head -1)
     sample2markers.py \\
         --input ${sam_bz2} \\
         --output_dir . \\
-        -d ${metaphlan_db} \\
+        -d "\$MPADB" \\
         --nprocs ${task.cpus}
     """
 }
