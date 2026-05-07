@@ -4,10 +4,12 @@
     "outdir":         "/mnt/workflow/pubdir",
 
     "kneaddata_db":   "s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/databases/kneaddata/GRCh38/",
-    "metaphlan_db":   "s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/databases/metaphlan/mpa_vJun23/",
-    "humann_nt_db":   "s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/databases/humann/chocophlan/",
-    "humann_prot_db": "s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/databases/humann/uniref/",
-    "humann_map_db":  "s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/databases/humann/metacyc/utility_mapping/",
+    "metaphlan_db":         "s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/databases/metaphlan/mpa_vJun23/",
+    "metaphlan_db_version": "mpa_vJan25_CHOCOPhlAnSGB_202503",
+    "humann_nt_db":         "s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/databases/humann/chocophlan/",
+    "humann_prot_db":       "s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/databases/humann/uniref/",
+    "humann_map_db":        "s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/databases/humann/metacyc/utility_mapping/",
 
-    "run_strainphlan": false
+    "run_strainphlan":        false,
+    "strainphlan_max_clades": 20
 }
