@@ -16,17 +16,7 @@ process SAMPLE2MARKERS {
 
     script:
     """
-    # Try bare .pkl first, then compressed .pkl.bz2 (some db builds compress it)
-    MPADB=\$(find ${metaphlan_db} -name "*.pkl" | head -1)
-    if [ -z "\$MPADB" ]; then
-        MPADB=\$(find ${metaphlan_db} -name "*.pkl.bz2" | head -1)
-    fi
-    # If still empty, log the directory contents and fall back to passing the dir
-    if [ -z "\$MPADB" ]; then
-        echo "WARNING: no .pkl file found in ${metaphlan_db}, listing contents:" >&2
-        ls -laR ${metaphlan_db}/ >&2
-        MPADB=${metaphlan_db}
-    fi
+    MPADB=${metaphlan_db}/${params.metaphlan_db_version}.pkl
     echo "Using database: \$MPADB" >&2
     sample2markers.py \\
         --input ${sam_bz2} \\
