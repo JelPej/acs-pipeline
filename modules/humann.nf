@@ -38,6 +38,8 @@ process HUMANN {
 }
 
 // Step 2 of 4 — regroup UniRef gene families → EC numbers, per sample
+// uniref90_level4ec is not a built-in group in this container build; use the
+// map_level4ec_uniref90.txt.gz file from the utility mapping database instead.
 process HUMANN_REGROUP {
     tag "$sample_id"
     label 'process_low'
@@ -46,6 +48,7 @@ process HUMANN_REGROUP {
 
     input:
     tuple val(sample_id), path(genefamilies)
+    path humann_map_db
 
     output:
     tuple val(sample_id), path("${sample_id}_ecs.tsv"), emit: ecs
@@ -55,7 +58,7 @@ process HUMANN_REGROUP {
     humann_regroup_table \\
         --input ${genefamilies} \\
         --output ${sample_id}_ecs.tsv \\
-        --groups uniref90_level4ec
+        --custom ${humann_map_db}/map_level4ec_uniref90.txt.gz
     """
 }
 

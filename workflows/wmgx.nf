@@ -61,7 +61,7 @@ workflow WMGX {
     HUMANN(kneaddata_and_metaphlan, humann_nt_db, humann_prot_db, humann_map_db)
 
     // Regroup UniRef gene families → ECs, per sample
-    HUMANN_REGROUP(HUMANN.out.genefamilies)
+    HUMANN_REGROUP(HUMANN.out.genefamilies, humann_map_db)
 
     // Normalize to relative abundance — join genefamilies + ecs + pathabundance
     // by sample_id so all three tables are renormed in one task per sample
