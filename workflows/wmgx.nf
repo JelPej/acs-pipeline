@@ -7,6 +7,8 @@ include { METAPHLAN; MERGE_TAXONOMIC_PROFILES             } from '../modules/met
 include { HUMANN; HUMANN_REGROUP; HUMANN_RENORM;
           HUMANN_JOIN                                     } from '../modules/humann'
 include { MULTIQC                                         } from '../modules/multiqc'
+include { SAMPLE2MARKERS; STRAINPHLAN_PRINT_CLADES;
+          STRAINPHLAN                                     } from '../modules/strainphlan'
 
 workflow WMGX {
     take:
@@ -34,8 +36,22 @@ workflow WMGX {
     METAPHLAN(KNEADDATA.out.reads, metaphlan_db)
     MERGE_TAXONOMIC_PROFILES(METAPHLAN.out.profiles.map { it[1] }.collect())
 
-    // StrainPhlAn uses the SAM outputs — kept available for when it is implemented
-    // METAPHLAN.out.sam  → tuple val(sample_id), path(sam)
+    // Step 6b — Strain profiling (optional; gated by params.run_strainphlan)
+    if (params.run_strainphlan) {
+        SAMPLE2MARKERS(METAPHLAN.out.sam)
+
+        all_markers = SAMPLE2MARKERS.out.markers.collect()
+        STRAINPHLAN_PRINT_CLADES(all_markers)
+
+        // Fan out one STRAINPHLAN task per detected species clade
+        clades_ch = STRAINPHLAN_PRINT_CLADES.out.clades
+            .splitText()
+            .map { it.trim() }
+            .filter { it }
+            .take(params.strainphlan_max_clades)
+
+        STRAINPHLAN(clades_ch, all_markers, metaphlan_db)
+    }
 
     // Step 7a — Functional profiling (per sample, parallel)
     // Join KneadData reads with matching MetaPhlAn profile by sample_id
