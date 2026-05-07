@@ -88,41 +88,19 @@ output/
 
 ## Running on AWS HealthOmics
 
-### Prerequisites
-
-- AWS CLI configured with access to the account
-- The workflow registered in HealthOmics (note the `WORKFLOW_ID`)
-- An IAM role with permissions to read S3 inputs/databases and write to the output bucket
-
-### Start a run
-
 ```bash
-aws omics start-run \
-  --workflow-id <WORKFLOW_ID> \
-  --role-arn arn:aws:iam::<ACCOUNT_ID>:role/<OMICS_ROLE_NAME> \
+omics main.nf \
+  --github-repository "JelPej/acs-pipeline" \
+  --ref-type COMMIT \
+  --ref-value <COMMIT_SHA> \
+  --language NEXTFLOW \
+  --role-arn arn:aws:iam::071867742034:role/stage-usr-jpejovic@manifold.ai \
+  --input input_json/params.json \
   --output-uri s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/output/ \
-  --parameters file://params.json \
-  --name "acs-wmgx-run-$(date +%Y%m%d)" \
-  --region us-east-1
+  --name "acs-pipeline-<run-name>"
 ```
 
-### Test run (single sample)
-
-```bash
-aws omics start-run \
-  --workflow-id <WORKFLOW_ID> \
-  --role-arn arn:aws:iam::<ACCOUNT_ID>:role/<OMICS_ROLE_NAME> \
-  --output-uri s3://manifold-ai-sc-manifold-stage-platform-storage/research/projects/3649/data/acs_pipeline/output/test/ \
-  --parameters file://params.test.json \
-  --name "acs-wmgx-test-$(date +%Y%m%d)" \
-  --region us-east-1
-```
-
-### Check run status
-
-```bash
-aws omics get-run --id <RUN_ID> --region us-east-1
-```
+Replace `<COMMIT_SHA>` with the git commit hash to run (e.g. `9229cec`). The params file is passed via `--input` and must exist at `input_json/params.json` relative to where the command is run.
 
 ### params.json reference
 
@@ -142,16 +120,4 @@ aws omics get-run --id <RUN_ID> --region us-east-1
 }
 ```
 
-Set `"run_strainphlan": true` to enable optional strain profiling (adds SAMPLE2MARKERS + STRAINPHLAN steps). Use `"strainphlan_max_clades": 20` to cap the number of species profiled.
-
----
-
-## Running locally (Docker)
-
-```bash
-nextflow run main.nf \
-  -profile local \
-  -params-file params.json
-```
-
-Requires Docker and Nextflow ≥ 23.x.
+Set `"run_strainphlan": true` to enable optional strain profiling. Use `"strainphlan_max_clades": 20` to cap the number of species profiled.
