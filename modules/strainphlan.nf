@@ -12,7 +12,7 @@ process SAMPLE2MARKERS {
     path metaphlan_db
 
     output:
-    path "*.json", emit: markers
+    path "*.pkl", emit: markers
 
     script:
     """
@@ -43,7 +43,7 @@ process STRAINPHLAN_PRINT_CLADES {
     script:
     """
     strainphlan \\
-        --samples *.json \\
+        --samples *.pkl \\
         --output_dir . \\
         --print_clades_only \\
         --nprocs ${task.cpus} \\
@@ -85,7 +85,7 @@ process STRAINPHLAN {
         --output_dir .
 
     strainphlan \\
-        --samples *.json \\
+        --samples *.pkl \\
         --clade_markers ${clade}.fna \\
         --output_dir . \\
         --clade ${clade} \\
