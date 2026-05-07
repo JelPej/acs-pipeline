@@ -19,7 +19,7 @@ process SAMPLE2MARKERS {
     sample2markers.py \\
         --input ${sam_bz2} \\
         --output_dir . \\
-        --db_dir ${metaphlan_db} \\
+        -d ${metaphlan_db} \\
         --nprocs ${task.cpus}
     """
 }
