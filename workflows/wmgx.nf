@@ -38,7 +38,7 @@ workflow WMGX {
 
     // Step 6b — Strain profiling (optional; gated by params.run_strainphlan)
     if (params.run_strainphlan) {
-        SAMPLE2MARKERS(METAPHLAN.out.sam)
+        SAMPLE2MARKERS(METAPHLAN.out.sam, metaphlan_db)
 
         all_markers = SAMPLE2MARKERS.out.markers.collect()
         STRAINPHLAN_PRINT_CLADES(all_markers)

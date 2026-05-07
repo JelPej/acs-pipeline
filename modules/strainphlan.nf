@@ -9,6 +9,7 @@ process SAMPLE2MARKERS {
 
     input:
     tuple val(sample_id), path(sam_bz2)
+    path metaphlan_db
 
     output:
     path "*.json", emit: markers
@@ -18,6 +19,7 @@ process SAMPLE2MARKERS {
     sample2markers.py \\
         --input ${sam_bz2} \\
         --output_dir . \\
+        --db_dir ${metaphlan_db} \\
         --nprocs ${task.cpus}
     """
 }
