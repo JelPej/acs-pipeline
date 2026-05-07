@@ -12,7 +12,7 @@ process SAMPLE2MARKERS {
     path metaphlan_db
 
     output:
-    path "*.pkl", emit: markers
+    path "*.pkl", emit: markers, optional: true
 
     script:
     """
@@ -23,6 +23,8 @@ process SAMPLE2MARKERS {
         --output_dir . \\
         -d "\$MPADB" \\
         --nprocs ${task.cpus}
+    echo "=== Files in work dir after sample2markers ===" >&2
+    ls -la . >&2
     """
 }
 
