@@ -1,6 +1,6 @@
 process METAPHLAN {
     tag "$sample_id"
-    label 'process_high'
+    label 'process_high_memory'
 
     publishDir "${params.outdir}/metaphlan/main", mode: 'copy'
 
